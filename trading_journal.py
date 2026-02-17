@@ -121,10 +121,11 @@ with tab2:
         st.subheader("Account Balance Curve")
         st.line_chart(df_stats.set_index("Date")["Account Balance"])
 
-        wins = len(df_stats[df_stats["Status"] == "Win"])
-        losses = len(df_stats[df_stats["Status"] == "Loss"])
+        wins = (df_stats["Status"] == "Win").sum()
+        losses = (df_stats["Status"] == "Loss").sum()
         total = len(df_stats)
         winrate = (wins / total) * 100 if total > 0 else 0
+
 
         col1, col2, col3 = st.columns(3)
         col1.metric("Total Trades", total)
@@ -219,3 +220,4 @@ with tab3:
 
     else:
         st.info("No trades available to edit.")
+
